@@ -5,7 +5,11 @@ services:
     ports:
       - "5000:5000"
     networks:
-      - appnetwork
+       appnetwork:
+            aliases:
+            - flask-app
+    
+
     depends_on:
       - mysql
   mysql:
@@ -17,6 +21,18 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - appnetwork
+  
+  nginx:
+    image: nginx
+    container_name: nginx
+    depends_on:
+        - app
+    volumes:
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+        - appnetwork
+    ports:
+        - 80:80
 
 networks:
   appnetwork:
