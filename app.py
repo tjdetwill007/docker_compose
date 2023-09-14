@@ -7,12 +7,7 @@ app.secret_key = 'your secret key'
 #Route to load index page
 
 #Mysql Connection
-mydb = mysql.connector.connect(
-  host="mysql",
-  user="root",
-  password="tjdetwill",
-  database="logindb"
-)
+
 
 @app.route('/')
 def index():
@@ -24,6 +19,12 @@ def login():
     msg=''
     if request.method == 'POST' and 'userEmail' in request.form and 'password' in request.form:
         try:   
+            mydb = mysql.connector.connect(
+            host="mysql",
+            user="root",
+            password="tjdetwill",
+            database="logindb"
+            )
             useremail=request.form['userEmail']
             userpasswd=request.form['password']
             mycursor = mydb.cursor()
@@ -48,6 +49,12 @@ def login():
 def signup():
     if (request.method and 'userEmail' in request.form and 'password' in request.form and 're-password' in 
     request.form and 'username' in request.form):
+        mydb = mysql.connector.connect(
+            host="mysql",
+            user="root",
+            password="tjdetwill",
+            database="logindb"
+            )
         username=request.form['username']
         useremail=request.form['userEmail']
         userpassword=request.form['password']
