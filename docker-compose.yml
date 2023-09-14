@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      -"5000:5000"
+    networks:
+      - appnetwork
+  mysql:
+    image: "mysql"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: tjdetwill
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - appnetwork
+
+networks:
+  appnetwork:
